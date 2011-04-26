@@ -1,0 +1,91 @@
+﻿<Window x:Class="iPhoneTrackerWin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:iPhoneTrackerWin"
+        Title="iPhoneTrackerWin"
+        Height="670"
+        Width="1030"
+        WindowStartupLocation="CenterScreen"
+        Icon="/iPhoneTrackerWin;component/App.ico"
+        ResizeMode="CanMinimize"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        TextOptions.TextFormattingMode="Display">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:BackupDatabaseFile}">
+            <DockPanel>
+                <Image DockPanel.Dock="Left"
+                       Width="16"
+                       Height="16"
+                       Margin="2"
+                       Source="/iPhoneTrackerWin;component/Images/iTunes.png" />
+                <TextBlock Text="{Binding}"
+                           VerticalAlignment="Center"
+                           Margin="2,0" />
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:CustomDatabaseFile}">
+            <DockPanel>
+                <Image DockPanel.Dock="Left"
+                       Width="16"
+                       Height="16"
+                       Margin="2"
+                       Source="/iPhoneTrackerWin;component/Images/Database.png" />
+                <TextBlock Text="{Binding File}"
+                           VerticalAlignment="Center"
+                           Margin="2,0" />
+            </DockPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="0"
+                    Margin="2,4">
+            <Label Target="{Binding ElementName=BackupsCombo}">Select Backup:</Label>
+            <ComboBox x:Name="BackupsCombo"
+                      ItemsSource="{Binding Backups}"
+                      SelectedItem="{Binding SelectedBackup}"
+                      MinWidth="300" />
+            <Button Click="OpenCustom_Click"
+                    ToolTip="Open Custom Database File..."
+                    Margin="4,2">
+                <Image Width="16"
+                       Height="16"
+                       Source="/iPhoneTrackerWin;component/Images/Open.png" />
+            </Button>
+            <CheckBox IsChecked="{Binding LoadWiFi}"
+                      Margin="4,0">
+                <Label>Load WiFi data too</Label>
+            </CheckBox>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="4">
+            <Button Margin="4,0"
+                    Click="ShowLog_Click">Show Log</Button>
+            <TextBlock VerticalAlignment="Center">
+                <Hyperlink x:Name="WebPage"
+                           RequestNavigate="Hyperlink_RequestNavigate"
+                           NavigateUri="http://huseyint.com/iPhoneTrackerWin">http://huseyint.com/iPhoneTracerkWin</Hyperlink>
+            </TextBlock>
+
+            <Button Click="Donate_Click"
+                    ToolTip="Support by donating via PayPal..."
+                    Margin="4,2">
+                <Image Width="16"
+                       Height="16"
+                       Source="/iPhoneTrackerWin;component/Images/PayPal.png" />
+            </Button>
+        </StackPanel>
+        
+        <WebBrowser x:Name="Browser"
+                    Grid.Row="1" />
+    </Grid>
+</Window>
