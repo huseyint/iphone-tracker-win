@@ -71,6 +71,21 @@ function loadLocationData() {
   openHeatMap.setAnimationTime('All Time');
 }
 
+function resizeMap(width, height)
+{
+  var openHeatMap = $.getOpenHeatMap();
+
+  openHeatMap.setSize(width, height);
+  
+  $('#openheatmap_container')
+    .width(width+'px')
+    .height(height+'px');
+	
+  $('#openheatmap')
+    .width(width+'px')
+    .height(height+'px');
+}
+
 </script>
 </head>
 <body style="margin:0px; padding:0px; position:relative;">

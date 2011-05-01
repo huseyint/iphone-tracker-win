@@ -42,6 +42,8 @@
 
         private bool loadWiFi;
 
+        private bool browserLoaded;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -210,6 +212,8 @@
         private void Browser_LoadCompleted(object sender, NavigationEventArgs e)
         {
             this.Log("Browser_LoadCompleted enter");
+
+            this.browserLoaded = true;
 
             try
             {
@@ -446,7 +450,7 @@
 
             if (Thread.CurrentThread.CurrentCulture.Parent != null && string.Equals(Thread.CurrentThread.CurrentCulture.Parent.IetfLanguageTag, "de"))
             {
-                donateUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YE8N3KHU7L434";                
+                donateUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YE8N3KHU7L434";
             }
             else
             {
@@ -455,6 +459,24 @@
 
             Process.Start(new ProcessStartInfo(donateUrl));
             e.Handled = true;
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (this.browserLoaded == false)
+            {
+                return;
+            }
+
+            var size = (Size)this.GetType().GetProperty("WindowSize", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this, null);
+
+            var width = size.Width - 35;
+            var height = size.Height - 75;
+
+            if (width > 0 && height > 0)
+            {
+                this.ExecuteJavaScript("resizeMap(" + width + "," + height + ");");
+            }
         }
     }
 }

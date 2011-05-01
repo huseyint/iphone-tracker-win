@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:iPhoneTrackerWin"
         Title="iPhoneTrackerWin"
-        Height="670"
-        Width="1030"
+        Height="675"
+        Width="1035"
         WindowStartupLocation="CenterScreen"
         Icon="/iPhoneTrackerWin;component/App.ico"
-        ResizeMode="CanMinimize"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True"
-        TextOptions.TextFormattingMode="Display">
+        TextOptions.TextFormattingMode="Display"
+        SizeChanged="Window_SizeChanged">
     <Window.Resources>
         <DataTemplate DataType="{x:Type local:BackupDatabaseFile}">
             <DockPanel>
